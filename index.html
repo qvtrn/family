@@ -185,11 +185,15 @@ document.querySelectorAll('.menu button').forEach(function(b){b.onclick=function
 document.querySelectorAll('.back').forEach(function(b){b.onclick=function(){go('home')}});
 
 /* لعبة الصيد */
-var M=[['👨','أبي'],['👩','أمي'],['👴','جدي'],['👵','جدتي'],['👦','أخي'],['👧','أختي']];
+var M=[['👨','أبي','أَبِي','هذا'],['👩','أمي','أُمِّي','هذه'],['👴','جدي','جَدِّي','هذا'],['👵','جدتي','جَدَّتِي','هذه'],['👦','أخي','أَخِي','هذا'],['👧','أختي','أُخْتِي','هذه']];
 var pond=document.getElementById('pond'),tg=document.getElementById('tg'),st=document.getElementById('st'),msg=document.getElementById('msg');
 var score=0,GOAL=6,target=null,last=-1;
 function shuffle(a){return a.slice().sort(function(){return Math.random()-.5})}
-function speak(t){try{var u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+var arVoice=null;
+function pickVoice(){try{var v=speechSynthesis.getVoices().filter(function(x){return /^ar/i.test(x.lang)});
+  arVoice=v.filter(function(x){return /SA/i.test(x.lang)})[0]||v[0]||null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function speak(t){try{if(!arVoice)pickVoice();var u=new SpeechSynthesisUtterance(t);u.lang=arVoice?arVoice.lang:'ar-SA';if(arVoice)u.voice=arVoice;u.rate=.75;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function stars(){var s='';for(var i=0;i<GOAL;i++)s+=i<score?'⭐':'☆';st.textContent=s}
 function round(){
   if(score>=GOAL){
@@ -209,7 +213,7 @@ function round(){
     f.innerHTML='<b>'+m[0]+'</b><i>'+m[1]+'</i>';
     f.onclick=function(){
       if(m===target){
-        f.classList.add('yes');score++;msg.textContent='رائع! هذه '+m[1]+' 🎉';speak(m[1]);stars();
+        f.classList.add('yes');score++;msg.textContent='رائع! '+m[3]+' '+m[1]+' 🎉';speak(m[2]);stars();
         setTimeout(round,900);
       }else{
         f.classList.remove('no');void f.offsetWidth;f.classList.add('no');msg.textContent='حاول مرة أخرى';
@@ -217,9 +221,9 @@ function round(){
     };
     pond.appendChild(f);
   });
-  speak(target[1]);
+  speak(target[2]);
 }
-document.getElementById('say').onclick=function(){if(target)speak(target[1])};
+document.getElementById('say').onclick=function(){if(target)speak(target[2])};
 
 /* التلوين */
 var cols=['#E53935','#FF9800','#FFD83A','#43A047','#29B6F6','#3F51B5','#8E44AD','#F48FB1','#8D6E63','#ffffff'];
