@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>وحدة العائلة</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF3D6;--ink:#23324A;--card:#fff;--sea:#1B8FA0;--sea2:#0E6E80;--coral:#FF6F59;--sun:#FFC93C;--ok:#2E9E5B;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17202E;--ink:#FDF2D8;--card:#25324A}}
+:root[data-theme="dark"]{--bg:#17202E;--ink:#FDF2D8;--card:#25324A}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Baloo Bhaijaan 2","Segoe UI",Tahoma,sans-serif;font-size:18px;padding-bottom:84px;min-height:100vh}
+main{max-width:520px;margin:0 auto;padding:14px 14px 0}
+h1{font-size:26px;margin:6px 0 2px;text-align:center;font-weight:800}
+p.sub{margin:0 0 12px;text-align:center;opacity:.8}
+section{display:none}section.on{display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:3px solid var(--sea)}
+nav button{flex:1;border:0;border-radius:14px;padding:8px 4px;background:transparent;font-weight:700;font-size:15px;line-height:1.2}
+nav button span{display:block;font-size:24px}
+nav button.on{background:var(--sun);color:#23324A}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card);border-radius:18px;padding:10px 14px;margin-bottom:10px;border:3px solid var(--sea)}
+.target{font-size:26px;font-weight:800}
+.stars{letter-spacing:2px}
+.say{border:0;background:var(--sun);border-radius:50%;width:44px;height:44px;font-size:22px;color:#23324A}
+.pond{position:relative;height:420px;border-radius:24px;overflow:hidden;background:linear-gradient(#6FD3E0,#1B8FA0 60%,#0E6E80);border:3px solid var(--sea2)}
+.pond::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 38px,rgba(255,255,255,.08) 38px 40px);pointer-events:none}
+.fish{position:absolute;width:118px;border:0;background:#FF8A5C;border-radius:60px 30px 30px 60px;padding:6px 8px;text-align:center;animation:swim var(--d) ease-in-out infinite alternate;box-shadow:0 3px 0 rgba(0,0,0,.2);color:#23324A;z-index:1}
+.fish:nth-child(even){background:#FFC93C}
+.fish b{display:block;font-size:34px;line-height:1.1;font-weight:400}
+.fish i{font-style:normal;font-weight:800;font-size:18px}
+.fish.no{animation:shake .4s}
+.fish.yes{transition:all .5s;transform:translateY(-300px) scale(1.2);opacity:0}
+@keyframes swim{from{transform:translateX(-26px)}to{transform:translateX(26px)}}
+@keyframes shake{25%{transform:translateX(-12px)}75%{transform:translateX(12px)}}
+.msg{min-height:30px;text-align:center;font-weight:800;margin:10px 0 0;font-size:20px}
+.big{display:inline-block;border:0;background:var(--coral);color:#fff;border-radius:16px;padding:10px 22px;font-weight:800;font-size:20px}
+.win{text-align:center;padding:40px 10px}.win div{font-size:70px}
+#art{width:100%;display:block;background:var(--card);border-radius:20px;border:3px solid var(--sea)}
+#art .d{fill:none;stroke:#23324A;stroke-width:2.5;stroke-linecap:round;pointer-events:none}
+#art .e{fill:#23324A;pointer-events:none}
+#art .c{stroke:#23324A;stroke-width:3;stroke-linejoin:round;cursor:pointer}
+.pal{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0}
+.pal button{width:42px;height:42px;border-radius:50%;border:3px solid #23324A;padding:0}
+.pal button.on{outline:4px solid var(--sun);outline-offset:2px;transform:scale(1.12)}
+.tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.row{display:flex;gap:10px;align-items:center;justify-content:center}
+.link{font-size:22px}
+.vline{width:6px;height:26px;background:#7A5230;border-radius:3px}
+.slot{width:150px;background:var(--card);border:3px solid var(--ok);border-radius:20px;padding:8px;text-align:center}
+.slot small{display:block;font-weight:800;color:var(--ok)}
+.slot .em{border:0;background:transparent;font-size:44px;line-height:1.2}
+.slot input{width:100%;font:inherit;text-align:center;border:2px solid var(--sea);border-radius:10px;padding:4px;background:transparent;color:var(--ink)}
+.done{margin-top:12px;font-weight:800;text-align:center;min-height:28px;color:var(--ok);font-size:20px}
+:focus-visible{outline:4px solid var(--coral);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.fish{animation:none}}
+</style>
+</head>
+<body>
+<main>
+<section id="fish" class="on">
+  <h1>اصطد من العائلة</h1>
+  <div class="bar"><div><div class="target" id="tg"></div><div class="stars" id="st"></div></div><button class="say" id="say" aria-label="استمع">🔊</button></div>
+  <div class="pond" id="pond"></div>
+  <p class="msg" id="msg"></p>
+</section>
+
+<section id="color">
+  <h1>لوّن عائلتي</h1>
+  <p class="sub">اختر لونًا ثم المس الرسم</p>
+  <svg id="art" viewBox="0 0 400 320">
+    <rect class="c" x="0" y="0" width="400" height="320" fill="#fff"/>
+    <rect class="c" x="0" y="262" width="400" height="58" fill="#fff"/>
+    <circle class="c" cx="352" cy="42" r="24" fill="#fff"/>
+    <path class="d" d="M352 8v8M352 68v8M318 42h8M378 42h8M328 18l6 6M370 60l6 6M376 18l-6 6M334 60l-6 6"/>
+    <path class="c" d="M50 52q-4-16 14-16q8-12 24-4q18-2 18 14q10 2 8 12h-66q-12-2-6-12z" fill="#fff"/>
+    <path class="c" d="M190 50q-4-14 12-14q8-10 22-3q16-1 16 12q9 2 7 11h-60q-10-2-5-10z" fill="#fff"/>
+    <!-- house -->
+    <rect class="c" x="108" y="78" width="16" height="36" fill="#fff"/>
+    <rect class="c" x="14" y="125" width="126" height="137" fill="#fff"/>
+    <polygon class="c" points="4,125 77,65 150,125" fill="#fff"/>
+    <rect class="c" x="60" y="192" width="34" height="70" rx="3" fill="#fff"/>
+    <circle class="e" cx="87" cy="228" r="2.5"/>
+    <rect class="c" x="24" y="148" width="30" height="30" fill="#fff"/>
+    <rect class="c" x="100" y="148" width="30" height="30" fill="#fff"/>
+    <path class="d" d="M39 148v30M24 163h30M115 148v30M100 163h30"/>
+    <!-- tree -->
+    <rect class="c" x="353" y="190" width="14" height="72" fill="#fff"/>
+    <circle class="c" cx="360" cy="160" r="28" fill="#fff"/>
+    <circle class="c" cx="340" cy="186" r="20" fill="#fff"/>
+    <circle class="c" cx="380" cy="186" r="20" fill="#fff"/>
+    <!-- dad -->
+    <rect class="c" x="174" y="216" width="14" height="42" fill="#fff"/>
+    <rect class="c" x="192" y="216" width="14" height="42" fill="#fff"/>
+    <ellipse class="c" cx="180" cy="260" rx="11" ry="5" fill="#fff"/>
+    <ellipse class="c" cx="200" cy="260" rx="11" ry="5" fill="#fff"/>
+    <rect class="c" x="162" y="162" width="10" height="40" rx="5" fill="#fff"/>
+    <rect class="c" x="208" y="162" width="10" height="40" rx="5" fill="#fff"/>
+    <circle class="c" cx="167" cy="206" r="6" fill="#fff"/>
+    <circle class="c" cx="213" cy="206" r="6" fill="#fff"/>
+    <rect class="c" x="172" y="158" width="36" height="60" rx="8" fill="#fff"/>
+    <circle class="c" cx="190" cy="140" r="17" fill="#fff"/>
+    <path class="c" d="M173 138Q172 119 190 119Q208 119 207 138Q198 128 190 128Q181 128 173 138Z" fill="#fff"/>
+    <circle class="e" cx="184" cy="141" r="2"/><circle class="e" cx="196" cy="141" r="2"/>
+    <path class="d" d="M184 148q6 5 12 0"/>
+    <!-- mom -->
+    <ellipse class="c" cx="245" cy="150" rx="21" ry="27" fill="#fff"/>
+    <rect class="c" x="237" y="232" width="8" height="26" fill="#fff"/>
+    <rect class="c" x="247" y="232" width="8" height="26" fill="#fff"/>
+    <ellipse class="c" cx="241" cy="260" rx="9" ry="4.5" fill="#fff"/>
+    <ellipse class="c" cx="251" cy="260" rx="9" ry="4.5" fill="#fff"/>
+    <rect class="c" x="223" y="162" width="9" height="38" rx="4.5" fill="#fff"/>
+    <rect class="c" x="258" y="162" width="9" height="38" rx="4.5" fill="#fff"/>
+    <circle class="c" cx="227" cy="204" r="5.5" fill="#fff"/>
+    <circle class="c" cx="263" cy="204" r="5.5" fill="#fff"/>
+    <polygon class="c" points="233,160 257,160 274,236 216,236" fill="#fff"/>
+    <path class="d" d="M235 176h20"/>
+    <circle class="c" cx="245" cy="143" r="16" fill="#fff"/>
+    <path class="c" d="M229 141Q230 124 245 124Q260 124 261 141Q252 132 245 133Q238 132 229 141Z" fill="#fff"/>
+    <circle class="e" cx="239" cy="145" r="2"/><circle class="e" cx="251" cy="145" r="2"/>
+    <path class="d" d="M239 151q6 5 12 0"/>
+    <!-- child -->
+    <rect class="c" x="295" y="234" width="8" height="24" fill="#fff"/>
+    <rect class="c" x="305" y="234" width="8" height="24" fill="#fff"/>
+    <ellipse class="c" cx="299" cy="260" rx="9" ry="4.5" fill="#fff"/>
+    <ellipse class="c" cx="309" cy="260" rx="9" ry="4.5" fill="#fff"/>
+    <rect class="c" x="286" y="204" width="7" height="26" rx="3.5" fill="#fff"/>
+    <rect class="c" x="315" y="204" width="7" height="26" rx="3.5" fill="#fff"/>
+    <rect class="c" x="293" y="200" width="22" height="38" rx="6" fill="#fff"/>
+    <circle class="c" cx="304" cy="186" r="13" fill="#fff"/>
+    <path class="c" d="M291 184Q291 170 304 170Q317 170 317 184Q309 177 304 177Q298 177 291 184Z" fill="#fff"/>
+    <circle class="e" cx="299" cy="188" r="1.6"/><circle class="e" cx="309" cy="188" r="1.6"/>
+    <path class="d" d="M299 193q5 4 10 0"/>
+    <!-- flowers -->
+    <path class="d" d="M150 292v-14M330 296v-14M110 300v-12"/>
+    <circle class="c" cx="150" cy="274" r="7" fill="#fff"/>
+    <circle class="c" cx="330" cy="278" r="7" fill="#fff"/>
+    <circle class="c" cx="110" cy="284" r="7" fill="#fff"/>
+  </svg>
+  <div class="pal" id="pal"></div>
+  <div style="text-align:center"><button class="big" id="clr">ابدأ من جديد</button></div>
+</section>
+
+<section id="tree">
+  <h1>شجرة عائلتي</h1>
+  <p class="sub">غيّر الوجه واكتب الأسماء</p>
+  <div class="tree" id="tr"></div>
+  <p class="done" id="dn"></p>
+</section>
+</main>
+
+<nav>
+  <button class="on" data-t="fish"><span>🎣</span>اصطد</button>
+  <button data-t="color"><span>🎨</span>تلوين</button>
+  <button data-t="tree"><span>🌳</span>الشجرة</button>
+</nav>
+
+<script>
+/* التنقل */
+document.querySelectorAll('nav button').forEach(function(b){
+  b.onclick=function(){
+    document.querySelectorAll('nav button').forEach(function(x){x.classList.toggle('on',x===b)});
+    document.querySelectorAll('section').forEach(function(s){s.classList.toggle('on',s.id===b.dataset.t)});
+  };
+});
+
+/* لعبة الصيد */
+var M=[['👨','أبي'],['👩','أمي'],['👴','جدي'],['👵','جدتي'],['👦','أخي'],['👧','أختي']];
+var pond=document.getElementById('pond'),tg=document.getElementById('tg'),st=document.getElementById('st'),msg=document.getElementById('msg');
+var score=0,GOAL=6,target=null,last=-1;
+function shuffle(a){return a.slice().sort(function(){return Math.random()-.5})}
+function speak(t){try{var u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function stars(){var s='';for(var i=0;i<GOAL;i++)s+=i<score?'⭐':'☆';st.textContent=s}
+function round(){
+  if(score>=GOAL){
+    pond.innerHTML='<div class="win"><div>🏆</div><h1>أحسنت! صدت كل العائلة</h1><button class="big" id="again">العب مرة أخرى</button></div>';
+    pond.style.background='transparent';pond.style.border='0';
+    document.getElementById('again').onclick=function(){score=0;pond.style.background='';pond.style.border='';round()};
+    tg.textContent='';msg.textContent='';stars();return;
+  }
+  var i;do{i=Math.floor(Math.random()*M.length)}while(i===last);last=i;target=M[i];
+  tg.textContent='اصطد: '+target[1];stars();msg.textContent='';
+  pond.innerHTML='';
+  shuffle(M).forEach(function(m,k){
+    var f=document.createElement('button');f.className='fish';
+    f.style.top=(k%3)*130+14+'px';
+    f.style.left=(k%2?52:2)+'%';
+    f.style.setProperty('--d',(2.2+Math.random()*2)+'s');
+    f.innerHTML='<b>'+m[0]+'</b><i>'+m[1]+'</i>';
+    f.onclick=function(){
+      if(m===target){
+        f.classList.add('yes');score++;msg.textContent='رائع! هذه '+m[1]+' 🎉';speak(m[1]);stars();
+        setTimeout(round,900);
+      }else{
+        f.classList.remove('no');void f.offsetWidth;f.classList.add('no');msg.textContent='حاول مرة أخرى';
+      }
+    };
+    pond.appendChild(f);
+  });
+  speak(target[1]);
+}
+document.getElementById('say').onclick=function(){if(target)speak(target[1])};
+round();
+
+/* التلوين */
+var cols=['#E53935','#FF9800','#FFD83A','#43A047','#29B6F6','#3F51B5','#8E44AD','#F48FB1','#8D6E63','#ffffff'];
+var cur=cols[0],pal=document.getElementById('pal');
+cols.forEach(function(c,i){
+  var b=document.createElement('button');b.style.background=c;b.setAttribute('aria-label','لون '+(i+1));
+  if(i===0)b.className='on';
+  b.onclick=function(){cur=c;pal.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)})};
+  pal.appendChild(b);
+});
+document.querySelectorAll('#art .c').forEach(function(el){el.onclick=function(){el.setAttribute('fill',cur)}});
+document.getElementById('clr').onclick=function(){document.querySelectorAll('#art .c').forEach(function(el){el.setAttribute('fill','#fff')})};
+
+/* شجرة العائلة */
+var tones=['','🏻','🏼','🏽','🏾','🏿'];
+var slots=[
+ {r:'الجد',e:['👴']},{r:'الجدة',e:['👵']},
+ {r:'الأب',e:['👨']},{r:'الأم',e:['👩']},
+ {r:'أنا',e:['👦','👧','🧒','👶']}
+];
+var tr=document.getElementById('tr'),dn=document.getElementById('dn'),inputs=[];
+function mk(s){
+  var d=document.createElement('div');d.className='slot';
+  var n=0,t=0,b=document.createElement('button');b.className='em';b.setAttribute('aria-label','غيّر الوجه');
+  function show(){b.textContent=s.e[n]+tones[t]}show();
+  b.onclick=function(){if(s.e.length>1){n=(n+1)%s.e.length}else{t=(t+1)%tones.length}show()};
+  var i=document.createElement('input');i.placeholder='الاسم';i.maxLength=14;
+  i.oninput=check;inputs.push(i);
+  var l=document.createElement('small');l.textContent=s.r;
+  d.appendChild(l);d.appendChild(b);d.appendChild(i);return d;
+}
+function check(){
+  var all=inputs.every(function(i){return i.value.trim()});
+  dn.textContent=all?'🌳 شجرتك جاهزة! أحسنت':'';
+}
+function row(a,b){var r=document.createElement('div');r.className='row';r.appendChild(mk(a));
+  if(b){var h=document.createElement('span');h.className='link';h.textContent='❤️';r.appendChild(h);r.appendChild(mk(b))}return r}
+function vl(){var v=document.createElement('div');v.className='vline';return v}
+tr.appendChild(row(slots[0],slots[1]));tr.appendChild(vl());
+tr.appendChild(row(slots[2],slots[3]));tr.appendChild(vl());
+tr.appendChild(row(slots[4]));
+</script>
+</body>
+</html>
